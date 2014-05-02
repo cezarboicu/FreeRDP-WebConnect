@@ -253,6 +253,10 @@
             function showDialog(show) {
                 if (show) {
                     ShowMouseHelper(false);
+                    $('extracommands').setStyles(
+                    {
+                        'visibility':'hidden'
+                    });
                     var dlg = $('maindialog');
                     var x = Math.round((window.getCoordinates().width - dlg.getCoordinates().width) / 2) + 'px';
                     var y = Math.round((window.getCoordinates().height - dlg.getCoordinates().height) / 2) + 'px';

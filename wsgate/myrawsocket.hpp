@@ -19,7 +19,17 @@
  */
 #ifndef _MYRAWSOCKET_H_
 #define _MYRAWSOCKET_H_
-
+#include "common.hpp"
+#include "btexception.hpp"
+#include "base64.hpp"
+#include "sha1.hpp"
+#include "logging.hpp"
+#include "wsendpoint.hpp"
+#include "wsgate.hpp"
+#include "myrawsocket.hpp"
+#include "nova_token_auth.hpp"
+#include "ehstypes.h"
+#include "ehs.h"
 #include "RDP.hpp"
 
 namespace wsgate {

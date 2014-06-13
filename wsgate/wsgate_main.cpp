@@ -80,7 +80,7 @@
 #include "wsgate.hpp"
 #include "myrawsocket.hpp"
 #include "nova_token_auth.hpp"
-#include "wsgate_ehs.h"
+#include "wsgate_ehs.hpp"
 
 #ifdef _WIN32
 #include <direct.h>

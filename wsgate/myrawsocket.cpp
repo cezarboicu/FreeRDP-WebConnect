@@ -21,7 +21,7 @@
 # include "config.h"
 #endif
 #include "myrawsocket.hpp"
-#include "wsgate_ehs.h"
+#include "wsgate_ehs.hpp"
 using namespace std;
 
 namespace wsgate {
@@ -86,6 +86,7 @@ namespace wsgate {
         MyRawSocketHandler *m_rsh;
     };
 
+    //***************** MyRawSocketHandler implementations ************************/
     MyRawSocketHandler::MyRawSocketHandler(WsGate *parent)
         : m_parent(parent)
         , m_cmap(conn_map())

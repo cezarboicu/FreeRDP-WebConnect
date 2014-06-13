@@ -22,10 +22,9 @@
 
 #include <string>
 #include "wsgate.hpp"
+#include "wsendpoint.hpp"
 
 namespace wspp {
-    class wsendpoint;
-
     using wsgate::log;
 
     /**
@@ -43,13 +42,21 @@ namespace wspp {
              * Send a text message to the remote client.
              * @param data The payload to send.
              */
-            void send_text(const std::string & data);
+            void send_text(const std::string & data) {
+                if (m_endpoint) {
+                    m_endpoint->send(data, frame::opcode::TEXT);
+                }
+            }
 
             /**
              * Send a binary message to the remote client.
              * @param data The payload to send.
              */
-            void send_binary(const std::string & data);
+            void send_binary(const std::string & data){
+                if (m_endpoint) {
+                   m_endpoint->send(data, frame::opcode::BINARY);
+                }
+            }
 
             /// Constructor
             wshandler() : m_endpoint(0) {}

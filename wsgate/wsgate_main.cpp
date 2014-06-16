@@ -84,6 +84,7 @@
 
 #ifdef _WIN32
 #include <direct.h>
+#include <httpserv.h>
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 # include <shlobj.h>
@@ -132,6 +133,53 @@ static void reload(int)
     signal(SIGHUP, reload);
 }
 #endif
+class CMyHttpModule : public CHttpModule
+{
+public:
+    REQUEST_NOTIFICATION_STATUS
+        OnAcquireRequestState(
+        IN IHttpContext * pHttpContext,
+        IN OUT IHttpEventProvider * pProvider
+        );
+};
+
+class CMyHttpModuleFactory : public IHttpModuleFactory
+{
+public:
+    virtual HRESULT GetHttpModule(
+        OUT CHttpModule **ppModule,
+        IN IModuleAllocator *
+        )
+
+    {
+    }
+
+    virtual void Terminate()
+    {
+    }
+};
+
+HRESULT
+__stdcall
+RegisterModule(
+    DWORD dwServerVersion,
+    IHttpModuleRegistrationInfo * pModuleInfo,
+    IHttpServer * pHttpServer
+)
+{
+    // step 1: save the IHttpServer and the module context id for future use
+    HTTP_MODULE_ID g_pModuleContext = pModuleInfo->GetId();
+    IHttpServer *g_pHttpServer = pHttpServer;
+
+    // step 2: create the module factory
+    CMyHttpModuleFactory *pFactory = new CMyHttpModuleFactory();
+
+
+    // step 3: register for server events
+    HRESULT hr = pModuleInfo->SetRequestNotifications(pFactory,
+        RQ_ACQUIRE_REQUEST_STATE,
+        0);
+};
 
 #ifdef _WIN32
 static int _service_main (int argc, char **argv)

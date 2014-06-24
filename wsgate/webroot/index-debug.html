@@ -208,7 +208,7 @@
             }
 
             function DrawLogo() {
-                    var logo = new Element('img', {'src': 'empty_on_purpose'});
+                    var logo = new Element('img', {'src': 'FreeRDP_Logo.png'});
                     logo.addEvent('load', function() {
                 var scaleWCoeficient = 0.5;
                 var scaleHCoeficient = 0.5;
@@ -329,7 +329,12 @@
                         if(querystring.length > 2)
                         {
                             showDialog(false);
-                            $('disconnect').setStyles({'visibility':'hidden'});
+                            var params=querystring.substring(1).split('&');
+                            for(var i=0; i<params.length; i++){
+                                var pair=params[i].split('=');
+                                if(decodeURIComponent(pair[0])=='token' && pair[1])
+                                    $('disconnect').setStyles({'visibility':'hidden'});       
+                            }
                             var urlParams;
                             (window.onpopstate = function () {
                                 var match,
@@ -380,12 +385,6 @@
         <div id="dvLoading" style="position:fixed; left:45%; top:45%; visibility:hidden;"><img src="images/loading.gif"></div>
         <noscript><p class="error">Please enable JavaScript.</p></noscript>
         <table width="400px" id="maindialog" class="invisible">
-	    <tr><td>
-		<div style="margin-left:auto; margin-right:auto; width:60%; position:relative;">
-		<a href="http://www.cloudbase.it">
-		<img src='http://cloudbase.it/wp-content/uploads/2012/10/CBSL_web_logo3.png' style="margin-left:auto; margin-right:auto;">
-		</a></div></img>
-            </td></tr>
             <tr>
                 <td>
                     <div id="rdpdialog" class="dialog">
